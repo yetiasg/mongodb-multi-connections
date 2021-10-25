@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY ./ ./
-CMD ["npm", "run", "start:build"]
+CMD ["npm", "run", "prod:build"]
 RUN sleep 10
 
 FROM node:14-alpine

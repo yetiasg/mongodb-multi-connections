@@ -4,9 +4,11 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
+    "prod:build": "tsc --build",
     "prod:run": "node app.js",
-    "start:build": "tsc --build",
-    "start:run": "nodemon app/dist/app.js",
+    
+    "start:build": "tsc --w",
+    "start:run": "nodemon dist/app.js",
     "start": "concurrently npm:start:*"
   },
   "keywords": [],
