@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - '5000:5001'
+    environment:
+      PORT: 5001
+  mongodb-1:
+    image: mongo
+    ports:
+      - '27017:27017'
+  mongodb-2:
+    image: mongo
+    ports:
+      - '27018:27017'
