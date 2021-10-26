@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
+    "dev:run": "node dist/app.js",
     "prod:build": "tsc --build",
     "prod:run": "node app.js",
-    "dev:run": "nodemon dist/app.js",
     "start:build": "tsc --w",
     "start:run": "nodemon dist/app.js",
     "start": "concurrently npm:start:*"
