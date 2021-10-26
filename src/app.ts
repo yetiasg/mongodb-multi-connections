@@ -1,47 +1,35 @@
-import experss, { Request, Response } from 'express'
-import mongoose, { ConnectOptions } from 'mongoose'
+import express, {Request, Response} from 'express'
+import { ErrorException } from './ErrorException'
 import dotenv from 'dotenv'
-// import { ProductModel } from './models/product.model'
-import { UserModel } from './models/user.model'
-import { HttpError } from 'http-errors'
+import morgan from 'morgan'
+import cors from 'cors'
 
-const app = experss()
+import { router as rootRouter} from './router'
 
-app.get('/', async(req: Request, res: Response) => {
-  res.status(200).json({message: 'rootRoutes'})
+const app = express()
+app.use(express.json())
+app.use(morgan('dev'))
+app.use(cors())
+
+app.use(rootRouter)
+
+app.use((req:Request, res:Response) => {
+  res.status(404).json({message: "Route not found - Error 404"})
 })
 
-app.get('/add-product', async(req: Request, res: Response) => {
-
-  // const addProduct = async() => {
-  //   const product = new ProductModel({name: 'Buty', description: 'szybkie', price: 12 })
-  //   await product.save()
-  // }
-  // addProduct()
-
-  res.status(200).json({message: 'done'})
-})
-
-app.get('/add-user', async(req: Request, res: Response) => {
-  const addUser = async() => {
-    console.log('creating user-----------------------------------------------')
-    const user = new UserModel({name:'Mati', lastName:'Żupa', email:'yetiasg@gmail.com'})
-    console.log('added user-----------------------------------------------')
-    await user.save()
-    console.log('saved user-----------------------------------------------')
-  }
-  await addUser()
-  res.status(200).json({message: 'done'})
-})
-
-
-
-mongoose.connect('mongodb://mongodb-db1:27017', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-} as ConnectOptions).then(() => {
-  dotenv.config()
-  app.listen(process.env.PORT, () => {
-    console.log(`Listening on port: ${process.env.PORT}`) 
+app.use((err:ErrorException, req:Request, res:Response) => {
+  const status = err.status
+  const message = err.message
+  res.status(404).json({
+    error: {
+      status,
+      message
+    }
   })
-}).catch(err => console.log(err, '-------------------------------'))
+})
+
+import './dbconnection'
+dotenv.config()
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port: ${process.env.PORT}`) 
+})

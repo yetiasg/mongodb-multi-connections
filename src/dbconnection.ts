@@ -1,17 +1,22 @@
-// import mongoose, { Connection } from 'mongoose'
-// import createError, { HttpError } from 'http-errors'
+import mongoose, { Connection, ConnectOptions } from 'mongoose'
+import createError, { HttpError } from 'http-errors'
 
-// const createNewConnection = (url:string):(Connection | HttpError | undefined) => {
-//   try{
-//     const conn:Connection = mongoose.createConnection(url)
-//     // if(!conn) return new createError.InternalServerError()
-//     console.log('connected!-------------------------------')
-//     return conn
-//   }catch(error){
-//     console.log(error, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-//   }
-// }
-// export const userConnection = createNewConnection('mongodb://localhost:27018/user');
-// export const productConnection = createNewConnection('mongodb://localhost:27018/product');
+const createNewConnection = (url:string, options:ConnectOptions):(Connection | HttpError | undefined) => {
+  try{
+    const conn = mongoose.createConnection(url, options)
+    if(!conn) throw new createError.InternalServerError('Sth wrong with DB connection')
+    return conn
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+} as ConnectOptions
+
+export const userConnection = createNewConnection('mongodb://mongodb-users:27018/users', options)
+export const productConnection = createNewConnection('mongodb://mongodb-products:27019/products', options)
 
 

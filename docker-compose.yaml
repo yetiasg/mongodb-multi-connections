@@ -13,21 +13,14 @@ services:
     ports:
       - '5000:5005'
 
-  mongodb-db1:
+  mongodb-users:
     image: mongo:latest
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    command: mongod --port 27018
     ports:
-      - 27018:27017
+      - 27018:27018
 
-  # mongo-express:
-  #   image: mongo-express
-  #   restart: always
-  #   ports:
-  #     - 8081:8081
-  #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: rootpassword
-  #     ME_CONFIG_MONGODB_PORT: 27017
-  #     ME_CONFIG_MONGODB_SERVER: mongodb
+  mongodb-products:
+    image: mongo:latest
+    command: mongod --port 27019
+    ports:
+      - 27019:27019
