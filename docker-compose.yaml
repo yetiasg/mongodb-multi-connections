@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   server:
+    restart: always
     build:
       dockerfile: Dockerfile.dev
       context: .
@@ -11,11 +12,22 @@ services:
       PORT: 5005
     ports:
       - '5000:5005'
-  mongodb-1:
-    image: mongo
+
+  mongodb-db1:
+    image: mongo:latest
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: rootpassword
     ports:
-      - '27017:27017'
-  mongodb-2:
-    image: mongo
-    ports:
-      - '27018:27017'
+      - 27018:27017
+
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: rootpassword
+  #     ME_CONFIG_MONGODB_PORT: 27017
+  #     ME_CONFIG_MONGODB_SERVER: mongodb
