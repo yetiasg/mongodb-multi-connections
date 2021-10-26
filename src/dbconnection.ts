@@ -4,7 +4,7 @@ import createError, { HttpError } from 'http-errors'
 const createNewConnection = (url:string, options:ConnectOptions):(Connection | HttpError | undefined) => {
   try{
     const conn = mongoose.createConnection(url, options)
-    if(!conn) throw new createError.InternalServerError('Sth wrong with DB connection')
+    if(!conn) throw new createError.InternalServerError('Sth went wrong with DB connection')
     return conn
   }catch(error){
     console.log(error)

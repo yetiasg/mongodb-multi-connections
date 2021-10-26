@@ -1,7 +1,6 @@
-import mongoose, { Schema } from "mongoose"
+import { Schema } from "mongoose"
 import { IProduct } from "../interfaces/product.interface";
 import { productConnection } from "../dbconnection";
-// const conn = mongoose.createConnection('mongodb://mongodb-products:27019/products')
 
 const productSchema = new Schema<IProduct>({
   name: {

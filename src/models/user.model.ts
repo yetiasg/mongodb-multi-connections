@@ -1,7 +1,6 @@
-import mongoose, { Schema } from "mongoose"
+import { Schema } from "mongoose"
 import { IUser } from "../interfaces/user.interface";
 import { userConnection } from "../dbconnection";
-// const conn = mongoose.createConnection('mongodb://mongodb-users:27018/users')
 
 const userSchema = new Schema<IUser>({
   name: {
