@@ -2,12 +2,15 @@ version: '3.9'
 services:
   server:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: .
-    ports:
-      - '5000:5001'
+    volumes:
+      - /app/node_modules
+      - .:/app
     environment:
-      PORT: 5001
+      PORT: 5005
+    ports:
+      - '5000:5005'
   mongodb-1:
     image: mongo
     ports:
