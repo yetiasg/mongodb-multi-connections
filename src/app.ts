@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express'
 import { ErrorException } from './ErrorException'
-import dotenv from 'dotenv'
+import { config } from './config'
 import morgan from 'morgan'
 import cors from 'cors'
 
@@ -29,7 +29,6 @@ app.use((err:ErrorException, req:Request, res:Response) => {
 })
 
 import './dbconnection'
-dotenv.config()
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on port: ${process.env.PORT}`) 
+app.listen(config.server.PORT, () => {
+  console.log(`Listening on port: ${config.server.PORT}`) 
 })
